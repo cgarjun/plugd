@@ -27,7 +27,7 @@ Example direcotry to be available through PYTHONPATH
 ```
 example
 |_______ simple_example.py
-|_______ another_example.py
+|_______ error_example.py
 |_______ __init__.py
 ```
 ## Example plugin

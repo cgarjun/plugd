@@ -11,8 +11,13 @@ class PlugdBase(object):
         docstring
         """
         self._name = 'plugin_name'
-        self._errors = []
-        self._skip_error = False
+
+    @abstractmethod
+    def __str__(self):
+        """
+        docstring
+        """
+        pass
 
     @abstractmethod
     def run(self):
@@ -27,53 +32,6 @@ class PlugdBase(object):
         Return: str
         """
         return self._name
-
-    def is_valid(self):
-        """
-        Checks if the plugin is valid based on error skip error propeties
-
-        Return: bool
-        """
-        if self.errors:
-            if self.skip_error:
-                return True
-            else:
-                return False
-        else:
-            return True
-
-    @property
-    def errors(self):
-        """
-        Return: list
-        """
-        return self._errors
-
-    @errors.setter
-    def errors(self, value):
-        """
-        Append an error to the error list
-        
-        Parameters
-        -------------------------------------------------------------
-        value: str
-            Error string
-        """
-        return self._errors.append(value)
-
-    @property
-    def skip_error(self):
-        """
-        docstring
-        """
-        return self._skip_error
-
-    @skip_error.setter
-    def skip_error(self, value):
-        """
-        docstring
-        """
-        self._skip_error = value
 
     @property
     def is_plugd_base(self):
@@ -99,6 +57,18 @@ class Plugd(object):
         with open(file_path) as json_file:
             self._config = json.load(json_file)
 
+    def _run_plugin(self, plugin_instance):
+        """
+        docstring
+        """
+        if self.is_valid_plugin(plugin_instance):
+            try:
+                plugin_instance.run()
+            except Exception as e:
+                if break_on_error:
+                    raise e
+                self.errors = e
+
     def is_valid_plugin(self, plugin_instance):
         """
         Checks if the plugin is inherited from PlugdBase class
@@ -123,25 +93,25 @@ class Plugd(object):
         """
         mod = self.get_plugin_module(self.config['plugins'][plugin_name])
         plugin_instance = mod.PlugdPlugin()
-        if self.is_valid_plugin(plugin_instance):
-            plugin_instance.run()
+        self._run_plugin(plugin_instance)
 
-    def run_plugins(self):
+    def run_plugins(self, break_on_error=False):
         """
         Runs all plugins listed in the config
         """
         for plugin in self.config['plugins']:
             mod = self.get_plugin_module(self.config['plugins'][plugin])
             plugin_instance = mod.PlugdPlugin()
-            if self.is_valid_plugin(plugin_instance):
-                plugin_instance.run()
+            self._run_plugin(plugin_instance)
+
+        return True
 
     def list_plugins(self):
         """
         List all plugins from the config
+        Return: dict
         """
-        for plugin in self.config['plugins']:
-            print("{0}: {1}".format(plugin, self.config['plugins'][plugin]))
+        return self.config['plugins']
 
     @property
     def file_path(self):
@@ -156,3 +126,22 @@ class Plugd(object):
         docstring
         """
         return self._config
+
+        @property
+    def errors(self):
+        """
+        Return: list
+        """
+        return self._errors
+
+    @errors.setter
+    def errors(self, value):
+        """
+        Append an error to the error list
+        
+        Parameters
+        -------------------------------------------------------------
+        value: str
+            Error string
+        """
+        return self._errors.append(value)
