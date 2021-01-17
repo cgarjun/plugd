@@ -7,54 +7,51 @@ Configuration based python plugin management
 
 ## Config schema
 config.json
-```
+```json
 {
     "plugins":{
-        "simple_example":"example.simple_example",
-        "another_example":"example.another_example",
+        "simple_example": "example.simple_example",
+        "another_example": "example.error_example"
         }
 }
 ```
 
 ## Usage
-```
+```python
 from plugd.api import Plugd
 plug = Plugd('config.json')
 plug.run_plugins()
 ```
 ## Plugin Structure
 Example direcotry to be available through PYTHONPATH
-```
+```bash
 example
 |_______ simple_example.py
 |_______ error_example.py
 |_______ __init__.py
 ```
 ## Example plugin
-```
+```python
 from plugd.api import PlugdBase
 
 class PlugdPlugin(PlugdBase):
+
     def __init__(self):
-        """
-        docstring
-        """
         pass
+
     def __str__(self):
-        """
-        docstring
-        """
         return "simple_example plugin"
+
     def run(self):
-        """
-        docstring
-        """
         print("Simple example plugin")
 
     @property
     def name(self):
-        """
-        docstring
-        """
         return 'simple_example'
+```
+## Testing
+```bash
+https://github.com/cgarjun/plugd.git
+cd plugd/src
+python -m unittest test.test_api
 ```

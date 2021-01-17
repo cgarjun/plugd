@@ -1,6 +1,6 @@
 {
     "plugins":{
-        "simple_example":"example.simple_example",
-        "another_example":"example.error_example",
+        "simple_example": "example.simple_example",
+        "another_example": "example.error_example"
         }
 }

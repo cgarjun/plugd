@@ -94,15 +94,17 @@ class Plugd(object):
         mod = self.get_plugin_module(self.config['plugins'][plugin_name])
         plugin_instance = mod.PlugdPlugin()
         self._run_plugin(plugin_instance)
+        return plugin_instance
 
     def run_plugins(self, break_on_error=False):
         """
         Runs all plugins listed in the config
         """
         for plugin in self.config['plugins']:
-            mod = self.get_plugin_module(self.config['plugins'][plugin])
-            plugin_instance = mod.PlugdPlugin()
-            self._run_plugin(plugin_instance)
+            self.run_plugin(plugin)
+            # mod = self.get_plugin_module(self.config['plugins'][plugin])
+            # plugin_instance = mod.PlugdPlugin()
+            # self._run_plugin(plugin_instance)
 
         return True
 
@@ -127,7 +129,7 @@ class Plugd(object):
         """
         return self._config
 
-        @property
+    @property
     def errors(self):
         """
         Return: list
