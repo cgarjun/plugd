@@ -12,6 +12,7 @@ class PlugdPlugin(PlugdBase):
         docstring
         """
         return "simple_example plugin"
+        
     def run(self):
         """
         docstring
