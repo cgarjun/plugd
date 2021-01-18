@@ -79,10 +79,29 @@ class Plugd(object):
         except AttributeError:
             return False
 
-    def get_plugin_module(self, module_package):
+    def get_plugin(self, plugin_name):
         """
         docstring
         """
+        mod = self.get_plugin_module(plugin_name)
+        plugin_instance = mod.PlugdPlugin()
+        return plugin_instance
+
+    def get_plugins():
+        """
+        docstring
+        """
+        plugins = []
+        for plugin in self.config['plugins']:
+            plugins.append(self.get_plugin(plugin))
+
+        return plugins
+
+    def get_plugin_module(self, plugin_name):
+        """
+        docstring
+        """
+        module_package = self.config['plugins'][plugin_name]
         mod = importlib.import_module(module_package)
         return mod
 
@@ -91,20 +110,16 @@ class Plugd(object):
         """
         docstring
         """
-        mod = self.get_plugin_module(self.config['plugins'][plugin_name])
-        plugin_instance = mod.PlugdPlugin()
+        plugin_instance = self.get_plugin(plugin_name)
         self._run_plugin(plugin_instance)
         return plugin_instance
 
-    def run_plugins(self, break_on_error=False):
+    def run_plugins(self):
         """
         Runs all plugins listed in the config
         """
         for plugin in self.config['plugins']:
             self.run_plugin(plugin)
-            # mod = self.get_plugin_module(self.config['plugins'][plugin])
-            # plugin_instance = mod.PlugdPlugin()
-            # self._run_plugin(plugin_instance)
 
         return True
 

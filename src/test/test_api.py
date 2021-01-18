@@ -29,7 +29,13 @@ class TestApi(unittest.TestCase):
         """
         docstring
         """
-        self.assertEqual(self.plugd_ins.get_plugin_module('example.simple_example'), simple_example)
+        self.assertEqual(self.plugd_ins.get_plugin_module('simple_example'), simple_example)
+    
+    def test_get_plugin(self):
+        """
+        docstring
+        """
+        self.assertIsInstance(self.plugd_ins.get_plugin('simple_example'), simple_example.PlugdPlugin)
 
     def test_run_plugin(self):
         """
