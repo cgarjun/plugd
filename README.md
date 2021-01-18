@@ -1,5 +1,9 @@
 # plugd
-Configuration based python plugin management
+One of the main reason for the origin of this library was to make sure the system
+remains really simple and don't have any crazy complicated workflows to setup a 
+plugin.
+
+
 
 <p align="left">
   <img src="https://github.com/cgarjun/plugd/blob/main/plugd.jpg" width="150" title="hover text">
@@ -49,7 +53,13 @@ class PlugdPlugin(PlugdBase):
     def name(self):
         return 'simple_example'
 ```
-## Testing
+## Tested platforms
+|Python Version|OS Platforms|
+|--------------------|--------------------|
+|2.7|Windows 10|
+|3.6|Mac Catalina 10.15.7|
+
+## Unit Testing
 ```bash
 https://github.com/cgarjun/plugd.git
 cd plugd/src
