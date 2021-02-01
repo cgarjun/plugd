@@ -33,6 +33,13 @@ class PlugdBase(object):
         """
         return self._name
 
+    @abstractproperty
+    def description(self):
+        """
+        Return: str
+        """
+        return self._description
+
     @property
     def is_plugd_base(self):
         """

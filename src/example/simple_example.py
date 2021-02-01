@@ -6,7 +6,8 @@ class PlugdPlugin(PlugdBase):
         """
         docstring
         """
-        pass
+        self._name = 'Simple Plugin'
+        self._description = 'Simple Plugin'
     def __str__(self):
         """
         docstring
@@ -24,4 +25,11 @@ class PlugdPlugin(PlugdBase):
         """
         docstring
         """
-        return 'simple_example'
+        return self._name
+
+    @property
+    def description(self):
+        """
+        docstring
+        """
+        return self._description
