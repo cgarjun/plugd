@@ -6,7 +6,8 @@ class PlugdPlugin(PlugdBase):
         """
         docstring
         """
-        pass
+        super(PlugdPlugin, self).__init__()
+        
     def __str__(self):
         """
         docstring
@@ -21,6 +22,13 @@ class PlugdPlugin(PlugdBase):
 
     @property
     def name(self):
+        """
+        docstring
+        """
+        return 'error_example'
+
+    @property
+    def description(self):
         """
         docstring
         """

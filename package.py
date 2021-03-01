@@ -14,7 +14,7 @@ description = \
 with scope("config") as c:
     c.release_packages_path = "Z:/packages/internal"
 
-requires = ["python-2.7"]
+requires = ["~python-2.7"]
 
 uuid = "rez-internal.plugd"
 
