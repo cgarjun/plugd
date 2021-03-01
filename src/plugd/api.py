@@ -11,6 +11,8 @@ class PlugdBase(object):
         docstring
         """
         self._name = 'plugin_name'
+        self._description = 'This is a example plugin'
+        self._skippable = False
 
     @abstractmethod
     def __str__(self):
@@ -39,6 +41,13 @@ class PlugdBase(object):
         Return: str
         """
         return self._description
+
+    @property
+    def skippable(self):
+        """
+        Return: bool
+        """
+        return self._skippable
 
     @property
     def is_plugd_base(self):
@@ -94,7 +103,7 @@ class Plugd(object):
         plugin_instance = mod.PlugdPlugin()
         return plugin_instance
 
-    def get_plugins():
+    def get_plugins(self):
         """
         docstring
         """

@@ -6,8 +6,10 @@ class PlugdPlugin(PlugdBase):
         """
         docstring
         """
+        super(PlugdPlugin, self).__init__()
         self._name = 'Simple Plugin'
         self._description = 'Simple Plugin'
+        
     def __str__(self):
         """
         docstring
